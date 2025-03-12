@@ -1,4 +1,4 @@
-public class HewanApp {
+public class Main {
     public static void main(String[] args){
         Hewan kucing = new Hewan();
         Hewan anjing = new Hewan();
@@ -11,7 +11,7 @@ public class HewanApp {
         anjing.jenis = "Mamalia";
         anjing.suara = "Woof Woof!!";
 
-        kucing.tampilkanInfo(kucing.nama, kucing.jenis, kucing.suara);
-        anjing.tampilkanInfo(anjing.nama, anjing.jenis, anjing.suara);
+        kucing.tampilkanInfo();
+        anjing.tampilkanInfo();
     }
 }

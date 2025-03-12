@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class BankApp {
+public class Main {
     public static void main (String[] args) {
         Scanner input = new Scanner(System.in);
 
@@ -22,8 +22,10 @@ public class BankApp {
 
         System.out.printf("Masukkan Saldo yang ingin ditambahkan: ");
         topUp = input.nextDouble();
-
         rekening.setorUang(topUp);
+
+        System.out.printf("Masukkan Saldo yang ingin ditambahkan: ");
+        topUp = input.nextDouble();
         rekening2.setorUang(topUp);
 
         rekening.tampilkanInfo();
@@ -31,12 +33,10 @@ public class BankApp {
 
         System.out.printf("Masukkan Nominal yang ingin ditarik: ");
         tarik = input.nextDouble();
-
         rekening.tarikTunai(tarik);
 
         System.out.printf("Masukkan Nominal yang ingin ditarik: ");
         tarik = input.nextDouble();
-
         rekening2.tarikTunai(tarik);
         input.close();
     }
