@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Mahasiswa {
     String nama;
     String nim;

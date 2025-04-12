@@ -24,6 +24,7 @@ public class LoginSystem {
         inputUser = input.nextByte();
         input.nextLine();
 
+
         switch (inputUser){
             case 1:
                 System.out.printf("Masukkan Nama Mahasiswa:");
@@ -56,6 +57,9 @@ public class LoginSystem {
                 else
                     System.out.println("Login Admin Gagal");
 
+                break;
+            default:
+                System.out.printf("Input salah!");
                 break;
         }
 
