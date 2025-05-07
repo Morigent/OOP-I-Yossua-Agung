@@ -11,8 +11,6 @@ public class Main {
 
         System.out.println("Pertarungan dimulai");
         brimstone.serang(viper);
-        System.out.printf("OPEN UP THE SKYYYY!!!!!");
         viper.serang(brimstone);
-        System.out.printf("DON'T GET IN MY WAY!!");
     }
 }
