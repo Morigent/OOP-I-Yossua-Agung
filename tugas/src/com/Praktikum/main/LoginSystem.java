@@ -15,7 +15,7 @@ public class LoginSystem {
         };
 
         int pilihan;
-        do {
+        do {//menu
             System.out.println("Menu: ");
             System.out.println("1. Login Admin");
             System.out.println("2. Login Mahasiswa");
