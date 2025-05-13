@@ -39,12 +39,12 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
     @Override
     public void displayAppMenu() {
-        int i = 0;
+        int i;
         System.out.println("menu:");
         System.out.println("1. Laporan barang temuan/hilang");
         System.out.println("2. Lihat daftar laporan");
         System.out.println("0. logout");
-        input.nextInt(i);
+        i = input.nextInt();
         input.nextLine();
         switch (i){
             case 1:
