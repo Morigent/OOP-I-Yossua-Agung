@@ -3,14 +3,15 @@ package com.Praktikum.Users;
 import com.Praktikum.Action.AdminAction;
 
 import java.util.Scanner;
+import static com.Praktikum.main.LoginSystem.userList;
 
 public class Admin extends User implements AdminAction {
     private String username;
     private String password;
-    Scanner scanner = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
 
     public Admin (String username, String password){
-        super("", "");
+        super(username, password);
         this.username = username;
         this.password = password;
     }
@@ -18,15 +19,20 @@ public class Admin extends User implements AdminAction {
         super("","");
         //
     }
+    public String getUsername(){
+        return username;
+    }
 
-    @Override
-    public boolean login(String user, String pass) {
-        if (user.equalsIgnoreCase(username)&&pass.equals(pass)){
-            return true;
-        }
-        else{
-            return false;
-        }
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public void setPassword(String password){
+        this.password = password;
     }
 
     @Override
@@ -66,6 +72,46 @@ public class Admin extends User implements AdminAction {
 
     @Override
     public void manageUsers() {
-        System.out.println(">>Fitur kelola mahasiswa belum tersedia<<");
+        int p = 0;
+        String nama;
+        String nim;
+        boolean con = true;
+        do {
+            System.out.println("Menu kelola data mahasiswa:");
+            System.out.println("1. Tambah mahasiswa");
+            System.out.println("2. Hapus mahasiswa");
+            System.out.print("Masukkan pilihan: ");
+            p = input.nextInt();
+            input.nextLine();
+
+            switch (p) {
+                case 1:
+                    System.out.printf("Masukkan Nama Mahasiswa: ");
+                    nama = input.nextLine();
+                    System.out.printf("Masukkan Nim mahasiswa: ");
+                    nim = input.nextLine();
+
+                    userList.add(new Mahasiswa(nama, nim));
+                    System.out.println("mahasiswa ditambahkan");
+                    con = false;
+                    break;
+                case 2:
+                    System.out.printf("Masukkan Nim mahasiswa: ");
+                    nim = input.nextLine();
+
+                    for (int i = 0; i < userList.size(); i++) {
+                        User user = userList.get(i);
+                        if (user instanceof Mahasiswa) {
+                            Mahasiswa mhs = (Mahasiswa) user;
+                            if (mhs.getNim().equals(nim)) {
+                                userList.remove(i);
+                                System.out.println("mahasiswa dihapus");
+                                con = false;
+                            }
+                        }
+                    }
+            }
+        }while (!con);
+
     }
 }

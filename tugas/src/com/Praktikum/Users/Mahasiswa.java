@@ -1,8 +1,11 @@
 package com.Praktikum.Users;
 
 import com.Praktikum.Action.MahasiswaAction;
+import com.Praktikum.data.Item;
 
 import java.util.Scanner;
+
+import static com.Praktikum.main.LoginSystem.itemList;
 
 public class Mahasiswa extends User implements MahasiswaAction {
     private String nama;
@@ -18,15 +21,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
         super("","");
     }
 
-    @Override
-    public boolean login(String user, String pass) {
-        if (user.equalsIgnoreCase(nama)&&pass.equals(nim)){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+
 
 
     @Override
@@ -39,24 +34,30 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
     @Override
     public void displayAppMenu() {
-        int i;
-        System.out.println("menu:");
-        System.out.println("1. Laporan barang temuan/hilang");
-        System.out.println("2. Lihat daftar laporan");
-        System.out.println("0. logout");
-        i = input.nextInt();
-        input.nextLine();
-        switch (i){
-            case 1:
-                reportItem();
-                break;
-            case 2:
-                viewReportedItem();
-                break;
-            case 0:
-                break;
-            default:
-                System.out.println("Input error");
+        boolean con = true;
+        while(con){
+            int i;
+            System.out.println("menu:");
+            System.out.println("1. Laporan barang temuan/hilang");
+            System.out.println("2. Lihat daftar laporan");
+            System.out.println("0. logout");
+            System.out.print("Pilihan: ");
+            i = input.nextInt();
+            input.nextLine();
+            switch (i) {
+                case 1:
+                    reportItem();
+                    break;
+                case 2:
+                    viewReportedItem();
+                    break;
+                case 0:
+                    con = false;
+                    break;
+                default:
+                    System.out.println("input Salah!");
+
+                }
         }
 
 
@@ -64,16 +65,30 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
     @Override
     public void reportItem() {
+
+        String itemName;
+        String description;
+        String location;
+
         System.out.printf("Nama Barang yang hilang atau ditemukan: ");
-        input.nextLine();
+        itemName = input.nextLine();
         System.out.printf("Deskripsi Barang: ");
-        input.nextLine();
+        description = input.nextLine();
         System.out.printf("Lokasi ditemukan: ");
-        input.nextLine();
+        location = input.nextLine();
+
+        itemList.add(new Item(itemName,description,location));
+        viewReportedItem();
     }
 
     @Override
     public void viewReportedItem() {
-        System.out.println(">>Fitur lihat laporan belum tersedia<<");
+        for (Item item : itemList){
+            System.out.println("==============================================================================");
+            System.out.println("| Name            | Description               | Location        | Status     |");
+            System.out.println("==============================================================================");
+            System.out.println(item);
+            System.out.println("==============================================================================");
+        }
     }
 }

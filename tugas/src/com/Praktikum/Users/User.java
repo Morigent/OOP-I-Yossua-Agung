@@ -18,14 +18,13 @@ public abstract class User {
     }
 
     public String getNim(){
-        return nama;
+        return nim;
     }
 
     public void setNim(){
         this.nim = nim;
     }
 
-    public abstract boolean login(String username, String Password);
 
     public void displayInfo(){
         System.out.println("Nama: " + nama);

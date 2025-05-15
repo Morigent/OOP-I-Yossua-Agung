@@ -1,24 +1,45 @@
 package com.Praktikum.main;
 import com.Praktikum.Users.*;
+import com.Praktikum.data.Item;
 
+import javax.swing.text.MaskFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoginSystem {
+    public static ArrayList<User> userList = new ArrayList<>();
+    public static ArrayList<Item> itemList = new ArrayList<>();
+
+
+    static  {
+        userList.add(new Mahasiswa("Yossua Agung Budianto", "202410370110391"));
+        userList.add(new Mahasiswa("Aditya Berwibawa", "202410370110407"));
+        userList.add(new Admin("SayaAdmin", "sayaLupa123"));
+    }
+
+    public static User login(String user, String pass){
+        for (User users : userList){
+
+            if (users instanceof Mahasiswa mhs && users.getNama().equalsIgnoreCase(user) && users.getNim().equalsIgnoreCase(pass) ){
+                return mhs;
+            }
+            else if (users instanceof Admin admin && users.getNama().equalsIgnoreCase(user) && users.getNim().equalsIgnoreCase(pass)){
+                return admin;
+            }
+        }
+        return null;
+    }
     public static void main(String[] args){
+  Scanner scanner = new Scanner(System.in);
 
-        Scanner scanner = new Scanner(System.in);
 
-        User [] users = { //object instance in array
-                new Admin("sayaAdmin", "Sayalupa123"),
-                new Mahasiswa("Yossua Agung Budianto", "202410370110391"),
-                new Mahasiswa("Aditya Wibawa", "202410370110407")
-        };
 
         int pilihan;
+        int limit = 0;
+        boolean bool = true;
         do {//menu
             System.out.println("Menu: ");
-            System.out.println("1. Login Admin");
-            System.out.println("2. Login Mahasiswa");
+            System.out.println("1. Login");
             System.out.println("3. Keluar");
             System.out.print("Masukkan pilihan login: ");
             pilihan = scanner.nextInt();
@@ -26,55 +47,39 @@ public class LoginSystem {
 
              switch (pilihan) {
                   case 1: //admin
-                      System.out.print("Masukkan username: ");
+                      System.out.print("Masukkan username/nama: ");
                       String inUser = scanner.nextLine();
-                      System.out.print("Masukkan password: ");
+                      System.out.print("Masukkan password/nim: ");
                       String pass = scanner.nextLine();
-                      User userLoggined = null;
 
-                      for (User user : users){
-                          if (user.login(inUser,pass)){
-                              userLoggined = new Admin(inUser,pass);
-                              break;
+                      User userLoggined = login(inUser,pass);
+
+                      if (userLoggined != null){
+                          System.out.println("Selamat Datang!");
+                          if(userLoggined instanceof Mahasiswa){
+                              userLoggined.displayInfo();
+                              userLoggined.displayAppMenu();
+                              bool =false;
+                          } else {
+                              userLoggined.displayInfo();
+                              userLoggined.displayAppMenu();
+                              bool = false;
                           }
                       }
-                      if (userLoggined != null){
-                          System.out.println("berhasil!");
-                          userLoggined.displayAppMenu();
-                      }
                       else {
-                          System.out.println("login gagal");
+                          System.out.println("password atau username salah");
+                          limit++;
                       }
-                      break;
-                 case 2: //mahasiswa
-                     System.out.print("Masukkan Nama: ");
-                     inUser = scanner.nextLine();
-                     System.out.print("Masukkan NIM: ");
-                     pass = scanner.nextLine();
-                      userLoggined = null;
-
-                     for (User user : users){
-                         if (user.login(inUser,pass)){
-                             userLoggined = new Mahasiswa(inUser,pass);
-                             break;
-                         }
-                     }
-                     if (userLoggined != null){
-                         System.out.println("berhasil!");
-                         userLoggined.displayAppMenu();
-                     }
-                     else {
-                         System.out.println("login gagal");
-                     }
-                     break;
                  case 3:
                       System.out.println("babayyy!!");
+                      bool = false;
                       break;
                   default:
                       System.out.println("Pilihan invalid.");
+                      limit++;
                       break;
              }
-        }while (pilihan != 3);
+        }while (bool || limit != 3);
 
     }
 
