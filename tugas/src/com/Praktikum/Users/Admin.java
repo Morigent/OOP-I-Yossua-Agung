@@ -1,8 +1,12 @@
 package com.Praktikum.Users;
 
 import com.Praktikum.Action.AdminAction;
+import com.Praktikum.data.Item;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static com.Praktikum.main.LoginSystem.itemList;
 import static com.Praktikum.main.LoginSystem.userList;
 
 public class Admin extends User implements AdminAction {
@@ -67,8 +71,54 @@ public class Admin extends User implements AdminAction {
 
     @Override
     public void manageItems() {
-        System.out.println(">>Fitur kelola barang belum tersedia<<");
+        try{
+            System.out.println("Menu kelola Laporan Kehilangan:");
+            System.out.println("1. Lihat semua barang");
+            System.out.println("2. tandai barang yang sudah diambil(Claimed)");
+            System.out.println("0. Keluar");
+            System.out.print("Masukkan pilihan: ");
+            int pil = input.nextInt();
+            input.nextLine();
+            switch (pil){
+                case 1:
+                    System.out.println("==============================================================================");
+                    System.out.println("| Name            | Description               | Location        | Status     |");
+                    System.out.println("==============================================================================");
+                    for(Item item : itemList) {
+                        System.out.println(item);
+                        System.out.println("==============================================================================");
+                    }
+                    break;
+                case 2:
+                    System.out.println("==============================================================================");
+                    System.out.println("No | Name            | Description               | Location        | Status     |");
+                    System.out.println("==============================================================================");
+                    for(int i = 0; i < itemList.size(); i++) {
+                        System.out.println(i + ". |" + "\t" + itemList.get(i).getItemName() + "\t" + itemList.get(i).getDescription() + "\t" + itemList.get(i).getLocation()+ "\t" + itemList.get(i).getStatus());
+                        System.out.println("==============================================================================");
+                    }
+                    System.out.print("Masukkan index yang ingin dirubah:");
+                    try {
+                        int index = input.nextInt();
+                        input.nextLine();
+                        if (0 > index && index < itemList.size()) {
+                            itemList.get(index).setStatus("Claimed");
+                            System.out.println("Status berhasil dirubah");
+                        }
+                    }
+                    catch (ArrayIndexOutOfBoundsException e ) {
+                        System.out.println("index melebihi batas");
+                    }
+                    catch (InputMismatchException e){
+                        System.out.println("Input Harus Angka");
+                    }
+            }
+        }
+        catch (InputMismatchException e){
+            System.out.println("Input Harus Angka");
+        }
     }
+
 
     @Override
     public void manageUsers() {
@@ -80,36 +130,48 @@ public class Admin extends User implements AdminAction {
             System.out.println("Menu kelola data mahasiswa:");
             System.out.println("1. Tambah mahasiswa");
             System.out.println("2. Hapus mahasiswa");
+            System.out.println("0. Keluar");
             System.out.print("Masukkan pilihan: ");
-            p = input.nextInt();
-            input.nextLine();
+            try {
+                p = input.nextInt();
+                input.nextLine();
 
-            switch (p) {
-                case 1:
-                    System.out.printf("Masukkan Nama Mahasiswa: ");
-                    nama = input.nextLine();
-                    System.out.printf("Masukkan Nim mahasiswa: ");
-                    nim = input.nextLine();
+                switch (p) {
+                    case 1:
+                        System.out.printf("Masukkan Nama Mahasiswa: ");
+                        nama = input.nextLine();
+                        System.out.printf("Masukkan Nim mahasiswa: ");
+                        nim = input.nextLine();
 
-                    userList.add(new Mahasiswa(nama, nim));
-                    System.out.println("mahasiswa ditambahkan");
-                    con = false;
-                    break;
-                case 2:
-                    System.out.printf("Masukkan Nim mahasiswa: ");
-                    nim = input.nextLine();
+                        userList.add(new Mahasiswa(nama, nim));
+                        System.out.println("mahasiswa ditambahkan");
+                        con = false;
+                        break;
+                    case 2:
+                        System.out.printf("Masukkan Nim mahasiswa: ");
+                        nim = input.nextLine();
 
-                    for (int i = 0; i < userList.size(); i++) {
-                        User user = userList.get(i);
-                        if (user instanceof Mahasiswa) {
-                            Mahasiswa mhs = (Mahasiswa) user;
-                            if (mhs.getNim().equals(nim)) {
-                                userList.remove(i);
-                                System.out.println("mahasiswa dihapus");
-                                con = false;
+                        for (int i = 0; i < userList.size(); i++) {
+                            User user = userList.get(i);
+                            if (user instanceof Mahasiswa) {
+                                Mahasiswa mhs = (Mahasiswa) user;
+                                if (mhs.getNim().equals(nim)) {
+                                    userList.remove(i);
+                                    System.out.println("mahasiswa dihapus");
+                                    con = false;
+                                }
                             }
                         }
-                    }
+                        break;
+                    case 0:
+                        System.out.println("Babayy!");
+                        break;
+
+                }
+            }
+            catch (InputMismatchException e){
+                System.out.println("Input Harus Angka");
+                continue;
             }
         }while (!con);
 

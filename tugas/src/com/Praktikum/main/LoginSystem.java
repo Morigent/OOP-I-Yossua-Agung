@@ -4,6 +4,7 @@ import com.Praktikum.data.Item;
 
 import javax.swing.text.MaskFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LoginSystem {
@@ -42,43 +43,42 @@ public class LoginSystem {
             System.out.println("1. Login");
             System.out.println("3. Keluar");
             System.out.print("Masukkan pilihan login: ");
-            pilihan = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                pilihan = scanner.nextInt();
+                scanner.nextLine();
 
-             switch (pilihan) {
-                  case 1: //admin
-                      System.out.print("Masukkan username/nama: ");
-                      String inUser = scanner.nextLine();
-                      System.out.print("Masukkan password/nim: ");
-                      String pass = scanner.nextLine();
+                switch (pilihan) {
+                    case 1: //admin
+                        System.out.print("Masukkan username/nama: ");
+                        String inUser = scanner.nextLine();
+                        System.out.print("Masukkan password/nim: ");
+                        String pass = scanner.nextLine();
 
-                      User userLoggined = login(inUser,pass);
+                        User userLoggined = login(inUser, pass);
 
-                      if (userLoggined != null){
-                          System.out.println("Selamat Datang!");
-                          if(userLoggined instanceof Mahasiswa){
-                              userLoggined.displayInfo();
-                              userLoggined.displayAppMenu();
-                              bool =false;
-                          } else {
-                              userLoggined.displayInfo();
-                              userLoggined.displayAppMenu();
-                              bool = false;
-                          }
-                      }
-                      else {
-                          System.out.println("password atau username salah");
-                          limit++;
-                      }
-                 case 3:
-                      System.out.println("babayyy!!");
-                      bool = false;
-                      break;
-                  default:
-                      System.out.println("Pilihan invalid.");
-                      limit++;
-                      break;
-             }
+                        if (userLoggined != null) {
+                            System.out.println("Selamat Datang!");
+                            if (userLoggined instanceof Mahasiswa) {
+                                userLoggined.displayInfo();
+                                userLoggined.displayAppMenu();
+                            } else {
+                                userLoggined.displayInfo();
+                                userLoggined.displayAppMenu();
+                            }
+                        } else {
+                            System.out.println("password atau username salah");
+                            limit++;
+                        }
+                    case 3:
+                        System.out.println("babayyy!!");
+                        bool = false;
+                        break;
+                }
+            }catch (InputMismatchException e){
+                System.out.println("input harus angka");
+                limit++;
+                continue;
+            }
         }while (bool || limit != 3);
 
     }

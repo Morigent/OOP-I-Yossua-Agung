@@ -3,6 +3,7 @@ package com.Praktikum.Users;
 import com.Praktikum.Action.MahasiswaAction;
 import com.Praktikum.data.Item;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static com.Praktikum.main.LoginSystem.itemList;
@@ -35,30 +36,36 @@ public class Mahasiswa extends User implements MahasiswaAction {
     @Override
     public void displayAppMenu() {
         boolean con = true;
-        while(con){
+        do{
             int i;
             System.out.println("menu:");
             System.out.println("1. Laporan barang temuan/hilang");
             System.out.println("2. Lihat daftar laporan");
             System.out.println("0. logout");
             System.out.print("Pilihan: ");
-            i = input.nextInt();
-            input.nextLine();
-            switch (i) {
-                case 1:
-                    reportItem();
-                    break;
-                case 2:
-                    viewReportedItem();
-                    break;
-                case 0:
-                    con = false;
-                    break;
-                default:
-                    System.out.println("input Salah!");
+            try {
+                i = input.nextInt();
+                input.nextLine();
+                switch (i) {
+                    case 1:
+                        reportItem();
+                        break;
+                    case 2:
+                        viewReportedItem();
+                        break;
+                    case 0:
+                        con = false;
+                        break;
+                    default:
+                        System.out.println("input Salah!");
 
                 }
-        }
+            }
+            catch (InputMismatchException e){
+                System.out.println("input Harus Angka");
+                continue;
+            }
+        }while(con);
 
 
     }
