@@ -52,6 +52,7 @@ public class Admin extends User implements AdminAction {
         System.out.println("1. Kelola Laporan Barang");
         System.out.println("2. Kelola Data Mahasiswa");
         System.out.println("0. logout");
+        System.out.print("pilihan:");
         Scanner input = new Scanner(System.in);
         i = input.nextInt();
         input.nextLine();
@@ -60,7 +61,7 @@ public class Admin extends User implements AdminAction {
                 manageItems();
                 break;
             case 2:
-                manageItems();
+                manageUsers();
                 break;
             case 0:
                 break;
@@ -145,7 +146,6 @@ public class Admin extends User implements AdminAction {
 
                         userList.add(new Mahasiswa(nama, nim));
                         System.out.println("mahasiswa ditambahkan");
-                        con = false;
                         break;
                     case 2:
                         System.out.printf("Masukkan Nim mahasiswa: ");
@@ -158,13 +158,13 @@ public class Admin extends User implements AdminAction {
                                 if (mhs.getNim().equals(nim)) {
                                     userList.remove(i);
                                     System.out.println("mahasiswa dihapus");
-                                    con = false;
                                 }
                             }
                         }
                         break;
                     case 0:
                         System.out.println("Babayy!");
+                        con = false;
                         break;
 
                 }
@@ -173,7 +173,7 @@ public class Admin extends User implements AdminAction {
                 System.out.println("Input Harus Angka");
                 continue;
             }
-        }while (!con);
+        }while (con);
 
     }
 }
