@@ -1,22 +1,25 @@
 package Users;
 
-
-import Main.LoginSystem;
 import data.Item;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-
+import Action.MahasiswaAction;
 import java.util.Scanner;
 
 
 import static Main.LoginSystem.itemList;
 
-public class Mahasiswa extends User  {
+public class Mahasiswa extends User implements MahasiswaAction {
     private String nama;
     private String nim;
     Scanner input = new Scanner(System.in);
@@ -32,15 +35,48 @@ public class Mahasiswa extends User  {
 
     public void displayMahasiswa(){
         VBox root = new VBox(10);
-        root.setStyle("-fx-background-color: #390e4a;");
+        root.setStyle("-fx-background-color: #170214;");
+
+        HBox hbox = new HBox(10);
+        hbox.setAlignment(Pos.CENTER);
 
         Label hello = new Label();
         hello.setText("Hallo, " + nama);
-        hello.setStyle("-fx-text-fill: white");
+        hello.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
 
         Label title = new Label();
         title.setText("Laporkan Barang hilang/temuan 📦");
-        title.setStyle("-fx-text-fill: white");
+        title.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
+
+        TextField inBarang = new TextField();
+        inBarang.setPromptText("Nama Barang");
+        inBarang.setStyle("-fx-background-color: #170214;" +
+                "-fx-border-color: #7d2aa1; " +
+                "-fx-border-width: 1px;" +
+                "-fx-border-radius: 10px; " +
+                "-fx-prompt-text-fill:white;" +
+                "-fx-text-fill: white;");
+
+        TextField inDeskripsi = new TextField();
+        inDeskripsi.setPromptText("Deskripsi");
+        inDeskripsi.setStyle("-fx-background-color: #170214;" +
+                "-fx-border-color: #7d2aa1; " +
+                "-fx-border-width: 1px;" +
+                "-fx-border-radius: 10px; " +
+                "-fx-prompt-text-fill:white;" +
+                "-fx-text-fill: white;");
+
+        TextField inLokasi = new TextField();
+        inLokasi.setPromptText("Lokasi");
+        inLokasi.setStyle("-fx-background-color: #170214;" +
+                "-fx-border-color: #7d2aa1; " +
+                "-fx-border-width: 1px;" +
+                "-fx-border-radius: 10px; " +
+                "-fx-prompt-text-fill:white;" +
+                "-fx-text-fill: white;");
+
+        Button lapor = new Button();
+        lapor.setText("Laporkan");
 
         TableColumn<Item, String> namaCol = new TableColumn<>("Nama");
         namaCol.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -49,22 +85,37 @@ public class Mahasiswa extends User  {
         deskirpCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
         TableColumn<Item, String> locationCol = new TableColumn<>("Lokasi");
-        deskirpCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
 
         TableColumn<Item,String> statusCol = new TableColumn<>("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+
+
         itemList.getColumns().addAll(namaCol, deskirpCol, locationCol, statusCol);
 
-        root.getChildren().addAll(hello,title,itemList);
+        hbox.getChildren().addAll(inBarang,inDeskripsi,inLokasi,lapor);
+        root.getChildren().addAll(hello,title,hbox,itemList);
 
-        itemList.setItems(LoginSystem.data);
-        Scene scene = new Scene(root,400,200);
+
+        lapor.setOnAction(event -> {
+            reportItem(inBarang.getText(),inDeskripsi.getText(),inLokasi.getText());
+        });
+
+
+        Scene scene = new Scene(root,800,600);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Mahasiswa");
         stage.show();
 
     }
+
+    @Override
+    public void reportItem(String barang, String deskripsi, String lokasi) {
+        itemList.getItems().add(new Item(barang,deskripsi,lokasi));
+
+    }
+
 
 }

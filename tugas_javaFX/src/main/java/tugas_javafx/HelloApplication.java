@@ -1,4 +1,4 @@
-package application.tugas_javafx;
+package tugas_javafx;
 
 import Users.Admin;
 import Users.Mahasiswa;
@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,14 +26,15 @@ public class HelloApplication extends Application {
         VBox root = new VBox(10);
         Separator separator = new Separator();
         separator.setPadding(new Insets(10,0,10,0));
+        HBox hBox =new HBox(10);
 
 
             Label header = new Label("Login System: Lost & found 📦");
-            header.setStyle("-fx-font-family:'Poppins'; -fx-font-weight: bold; -fx-text-fill:#ffffff;");
+            header.setStyle("-fx-font-family:'Poppins'; -fx-font-weight: bold; -fx-text-fill:#ffffff; -fx-font-size: 20px;");
 
             TextField namaField = new TextField();
             namaField.setPromptText("Nama");
-            namaField.setStyle("-fx-background-color: #390e4a; " +
+            namaField.setStyle("-fx-background-color: #170214; " +
                     "-fx-border-color: #7d2aa1; " +
                     "-fx-border-width: 1px; " +
                     "-fx-border-radius: 10px; " +
@@ -41,7 +43,7 @@ public class HelloApplication extends Application {
 
             TextField nimField = new TextField();
             nimField.setPromptText("NIM");
-            nimField.setStyle("-fx-background-color: #390e4a;" +
+            nimField.setStyle("-fx-background-color: #170214;" +
                     "-fx-border-color: #7d2aa1; " +
                     "-fx-border-width: 1px;" +
                     "-fx-border-radius: 10px; " +
@@ -50,12 +52,15 @@ public class HelloApplication extends Application {
             Label valid = new Label();
             Button login = new Button("Login");
             login.setStyle("-fx-text-fill: black; " +
-                    "-fx-background-color: #d6d436");
+                    "-fx-background-color: #7d2aa1");
 
+            hBox.setAlignment(Pos.CENTER);
+            hBox.setStyle("-fx-background-color: #170214;");
 
-            root.setStyle("-fx-background-color: #390e4a;");
+            root.setStyle("-fx-background-color: #170214;");
             root.setAlignment(Pos.CENTER);
             root.getChildren().addAll(header, namaField, nimField, valid, login);
+            hBox.getChildren().addAll(root);
 
             root.getChildren().addAll();
 
@@ -75,7 +80,7 @@ public class HelloApplication extends Application {
 
 
 
-        Scene scene = new Scene(root, 400, 300);
+        Scene scene = new Scene(hBox, 400, 300);
         stage.setTitle("Lost & found kampus");
         stage.setScene(scene);
         stage.show();
