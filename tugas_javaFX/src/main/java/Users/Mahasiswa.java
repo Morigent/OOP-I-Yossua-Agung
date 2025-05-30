@@ -46,7 +46,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
         Label title = new Label();
         title.setText("Laporkan Barang hilang/temuan 📦");
-        title.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
+        title.setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;");
 
         TextField inBarang = new TextField();
         inBarang.setPromptText("Nama Barang");
@@ -90,8 +90,6 @@ public class Mahasiswa extends User implements MahasiswaAction {
         TableColumn<Item,String> statusCol = new TableColumn<>("Status");
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-
-
         itemList.getColumns().addAll(namaCol, deskirpCol, locationCol, statusCol);
 
         hbox.getChildren().addAll(inBarang,inDeskripsi,inLokasi,lapor);
@@ -103,7 +101,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
         });
 
 
-        Scene scene = new Scene(root,800,600);
+        Scene scene = new Scene(root,500,400);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Mahasiswa");

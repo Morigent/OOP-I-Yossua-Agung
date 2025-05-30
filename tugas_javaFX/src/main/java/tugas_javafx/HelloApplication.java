@@ -51,7 +51,7 @@ public class HelloApplication extends Application {
                     "-fx-text-fill: white;");
             Label valid = new Label();
             Button login = new Button("Login");
-            login.setStyle("-fx-text-fill: black; " +
+            login.setStyle("-fx-text-fill: white; " +
                     "-fx-background-color: #7d2aa1");
 
             hBox.setAlignment(Pos.CENTER);
@@ -67,13 +67,15 @@ public class HelloApplication extends Application {
             login.setOnAction(event -> {
                 String nama = namaField.getText();
                 String nim = nimField.getText();
-                for (User users : userList) {
+                for (User users : userList.getItems()) {
                     if (users instanceof Mahasiswa mahasiswa && nama.equalsIgnoreCase(users.getNama()) && nim.equalsIgnoreCase(users.getNim())) {
                         System.out.println("test");
                         mahasiswa.displayMahasiswa();
                         stage.close();
                     } else if (users instanceof Admin admin && nama.equalsIgnoreCase(users.getNama()) && nim.equalsIgnoreCase(users.getNim())) {
+                        admin.displayAdmin();
                         System.out.println("admin");
+                        stage.close();
                     }
                 }
             });
