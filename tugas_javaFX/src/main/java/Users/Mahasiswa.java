@@ -14,10 +14,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import Action.MahasiswaAction;
+import tugas_javafx.*;
+
 import java.util.Scanner;
 
 
 import static Main.LoginSystem.itemList;
+import static tugas_javafx.HelloApplication.loginMenu;
 
 public class Mahasiswa extends User implements MahasiswaAction {
     private String nama;
@@ -50,7 +53,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
         TextField inBarang = new TextField();
         inBarang.setPromptText("Nama Barang");
-        inBarang.setStyle("-fx-background-color: #170214;" +
+        inBarang.setStyle("-fx-background-color: #2b0526;" +
                 "-fx-border-color: #7d2aa1; " +
                 "-fx-border-width: 1px;" +
                 "-fx-border-radius: 10px; " +
@@ -59,7 +62,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
         TextField inDeskripsi = new TextField();
         inDeskripsi.setPromptText("Deskripsi");
-        inDeskripsi.setStyle("-fx-background-color: #170214;" +
+        inDeskripsi.setStyle("-fx-background-color: #2b0526;" +
                 "-fx-border-color: #7d2aa1; " +
                 "-fx-border-width: 1px;" +
                 "-fx-border-radius: 10px; " +
@@ -68,7 +71,7 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
         TextField inLokasi = new TextField();
         inLokasi.setPromptText("Lokasi");
-        inLokasi.setStyle("-fx-background-color: #170214;" +
+        inLokasi.setStyle("-fx-background-color: #2b0526;" +
                 "-fx-border-color: #7d2aa1; " +
                 "-fx-border-width: 1px;" +
                 "-fx-border-radius: 10px; " +
@@ -77,6 +80,12 @@ public class Mahasiswa extends User implements MahasiswaAction {
 
         Button lapor = new Button();
         lapor.setText("Laporkan");
+        lapor.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: #7d2aa1");
+
+        Button logOut = new Button("Logout");
+        logOut.setStyle("-fx-text-fill: white; " +
+                "-fx-background-color: #7d2aa1");
 
         TableColumn<Item, String> namaCol = new TableColumn<>("Nama");
         namaCol.setCellValueFactory(new PropertyValueFactory<>("itemName"));
@@ -93,19 +102,23 @@ public class Mahasiswa extends User implements MahasiswaAction {
         itemList.getColumns().addAll(namaCol, deskirpCol, locationCol, statusCol);
 
         hbox.getChildren().addAll(inBarang,inDeskripsi,inLokasi,lapor);
-        root.getChildren().addAll(hello,title,hbox,itemList);
+        root.getChildren().addAll(hello,title,hbox,itemList,logOut);
 
 
         lapor.setOnAction(event -> {
             reportItem(inBarang.getText(),inDeskripsi.getText(),inLokasi.getText());
         });
 
-
-        Scene scene = new Scene(root,500,400);
+        Scene scene = new Scene(root,800,600);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Mahasiswa");
         stage.show();
+
+        logOut.setOnAction(event -> {
+            stage.close();
+            loginMenu();
+        });
 
     }
 
